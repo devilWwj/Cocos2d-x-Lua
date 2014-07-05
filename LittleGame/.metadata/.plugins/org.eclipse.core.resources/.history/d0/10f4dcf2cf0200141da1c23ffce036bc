@@ -1,0 +1,55 @@
+--[[
+卡片
+card.lua
+]]--
+
+
+function card(num)
+  local self = cc.Sprite:create()
+  local txt,bg
+
+  --初始化方法
+  local function init()
+    self.num = num
+    --设置内容尺寸
+    self:setContentSize( CCSizeMake( 80, 80 ) )
+    --设置锚点
+    self:setAnchorPoint(  cc.p( 0, 0 ) )
+
+    --设置显示数字的文本
+    txt = cc.Label:create()
+    txt:setString( num )
+    txt:setSystemFontSize( 50 )
+    txt:setSystemFontName( "Courier" )
+    --设置文本显示的位置，这里是中间
+    txt:setPosition( cc.p( 40,  40 ) )
+    --添加到表
+    self:addChild(txt)
+
+    --创建一个精灵，代表背景
+    bg = cc.Sprite:create()
+    --颜色块
+    bg:setTextureRect( cc.Rect( 0, 0, 80, 80 ) )
+    --默认为白色，这里设置为白色
+    bg:setColor( cc.c3b( 255, 255, 255 ) )
+    self:addChild(bg)
+
+    --显示文本
+    self:showTxt()
+  end
+
+  --定义显示文本的方法
+  self.showTxt = function()
+    txt:setVisible(true)
+    bg:setVisible(false)
+  end
+
+  --定义显示背景的方法
+  self.showBg = function()
+    txt:setVisible(false)
+    bg:setVisible(true)
+  end
+  init()
+
+  return self
+end
